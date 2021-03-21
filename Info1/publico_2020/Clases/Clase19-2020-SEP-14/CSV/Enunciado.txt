@@ -1,0 +1,32 @@
+Realizar un programa muestre por pantalla la siguiente información correspondiente a un grupo de
+microprocesadores.
+
+	ID
+	Nombre
+	Nucleos
+	Hilos
+	Frecuencia
+	Unidad de Frecuencia
+	Precio
+
+Para ello deberá contemplar las siguientes funcionalidades.
+
+* Mostar por pantalla una tabla con el siguiente formato:
+	ID	Nombre	Cant. Nucleos	Cant. Hilos	Velocidad	Precio
+
+* Importar los datos desde un archivo con formato separado por comas (CSV). Deberá solicitar el 
+nombre del archivo.
+* Finalizado el procesamiento (antes de salir del programa) deberá guardar el archivo en formato
+CSV. Solicitará el nombre del archivo.
+* Permita agregar registros de procesadores.
+* Permita quitar registros de procesadores usando el ID para la búsqueda.
+* Permita mostrar los datos ordenados por frecuencia o por precio.
+
+
+---------------------------------------------------------------------------------------------------------------
+Nota del programador:
+*En el programa, conviene utilizar la medida en lugar de la unidad en formato texto, por lo que 
+será conveniente tener funciones para realizar las conversiones.
+*Se sugiere la realización de una función para la liberación de la memoria correspondiente.
+
+

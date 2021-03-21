@@ -1,0 +1,10 @@
+El transistor es un dispositivo electronico semiconductor utilizado 
+para entregar una senal de salida en respuesta a una senal de entrada. 
+Cumple funciones de amplificador, oscilador, conmutador o rectificador. 
+El termino transistor es la contraccion en ingles de transfer resistor 
+(resistor de transferencia). Actualmente se encuentra practicamente en 
+todos los aparatos electronicos de uso diario tales como radios, 
+televisores, reproductores de audio y video, relojes de cuarzo, 
+computadoras, lamparas fluorescentes, tomografos, telefonos celulares, 
+aunque casi siempre dentro de los llamados circuitos integrados.
+
