@@ -72,23 +72,31 @@ void imprimir_matriz (matriz mat)
 
 int ** producto (matriz A, matriz B) 
 {
-	int i, j, n, **AB;// A e R^mxn y B e R^ixj, filas = m, columnas = j y orden = n = i. Asi, la matriz producto queda de la forma mxj, pero necesito saber la cantidad 					de elementos por fila de las matrices a multiplicar (el orden) para saber hasta donde multiplicar
+	/* A e R^mxn y B e R^ixj, filas = m, columnas = j y orden = n = i. Asi, la matriz producto queda de la forma mxj, pero necesito saber la cantidad de 
+	elementos por fila de las matrices a multiplicar (el orden) para saber hasta donde multiplicar*/
+	int i, j, k, **AB = NULL;					
 	
 	AB = pedir_memoria(A.filas, B.columnas);
 
-	for (i = 0; i < A.filas; i++)
+	/*for (i = 0; i < A.filas; i++)
 	{
 		for (j = 0; j < B.columnas; j++)
 		{
-			AB[i][j] = n = 0;
+			AB[i][j] = k = 0;
 
-			while (n != A.columnas) // "n" sirve para marcar hasta cuando se debe sumar para cada elemento de la matriz
+			while (k != A.columnas) // "k" sirve para marcar hasta cuando se debe sumar para cada elemento de la matriz
 			{
-				AB[i][j] += (A.m)[i][n] * (B.m)[n][j];
-				n++;
+				AB[i][j] += (A.m)[i][k] * (B.m)[k][j];
+				k++;
 			}
 		}
-	}
+	}*/
+	
+	for (i = 0; i < A.filas; i++)
+		for (j = 0; j < B.columnas; j++)
+			for(k = AB[i][j] = 0; k < A.columnas; k++) // "k" sirve para marcar hasta cuando se debe sumar para cada elemento de la matriz
+				AB[i][j] += A.m[i][k] * B.m[k][j];
+	
 	
 	return AB;
 }
