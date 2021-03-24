@@ -113,9 +113,27 @@ void liberar_memoria (int ***m, int filas)
 	free(*m);
 }
 
-void int_matrixMalloc (int_matrix **A)
+void int_matrixMalloc (int_matrix ***A)
 {
-	int 
+	int i, **aux = NULL;
+	
+	if ((**A)->rows > 0 && (**A)->cols > 0)
+	{
+		aux = (int**) malloc (sizeof(int*) * (**A)->rows);
+		
+		if (aux != NULL)
+		{
+			for (i = 0; i < (**A)->cols; i++)
+			{
+				aux[i] = (int*) malloc (sizeof(int) * (**A)->cols);
+				
+				if (aux[i] == NULL)
+				{
+						
+				}
+			}
+		}
+	}
 }
 
 
