@@ -45,7 +45,7 @@ iMatrix iMatrix_Product (iMatrix A, iMatrix B)
 
 	iMatrix_Malloc(&AxB);
 
-	if (AxB.mat != NULL)
+	if (AxB.mat != NULL && A.cols == B.rows)
 		for (i = 0; i < A.rows; i++)
 			for (j = 0; j < B.cols; j++)
 				for(k = AxB.mat[i][j] = 0; k < A.cols /*B.rows tambien sirve*/; k++)
@@ -75,7 +75,7 @@ void iMatrix_Fprintf (iMatrix A, FILE* file)
 		for (j = 0; j < A.cols; j++)
 			fprintf(file, "%i\t", A.mat[i][j]);
 
-		fprintf(file, "\n");
+		fprintf(file, "\n\n");
 	}
 }
 
@@ -88,7 +88,7 @@ void iMatrix_Fscanf (iMatrix *A, FILE* file)
 		for (j = 0; j < A->cols; j++)
 			fscanf(file, "%i", &A->mat[i][j]);
 
-		fprintf(file, "\n");
+		fprintf(file, "\n\n");
 	}
 }
 

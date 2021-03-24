@@ -19,5 +19,3 @@ int iMatrix_Det (iMatrix A);
 iMatrix iMatrix_Product (iMatrix A, iMatrix B);
 iMatrix iMatrix_ScalarProduct (iMatrix A, int k);
 void iMatrix_Free (iMatrix *A);
-
-
