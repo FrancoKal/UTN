@@ -113,5 +113,11 @@ void liberar_memoria (int ***m, int filas)
 	free(*m);
 }
 
+void int_matrixMalloc (int_matrix **A)
+{
+	int 
+}
+
+
 
 
