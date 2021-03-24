@@ -1,138 +1,94 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "funciones.h"
+#include "matrix.h"
 
-int pedir_matriz (matriz *mat)
+void iMatrix_Malloc (iMatrix *A)
 {
 	int i;
-
-	for (i = 0; (i < CANT_MATRICES) && (i >= 0); i++)
+	iMatrix aux = {.mat = NULL, .rows = A->rows, .cols = A->cols};
+	
+	if (aux.cols > 0 && aux.rows > 0)
 	{
-		printf("Ingresa las filas y las columnas de la matriz %i: ", i + 1);
-		scanf("%i %i", &(mat[i].filas), &(mat[i].columnas));
+		aux.mat = (int**) malloc (sizeof(int*) * aux.rows);
 		
-		if (mat[i].filas <= 0 || mat[i].columnas <= 0) i = ERROR_DATOS;
-	}
-	
-	if (mat[0].columnas != mat[1].filas) i = ERROR_PRODUCTO;
-	
-	return i;
-}
-
-int ** pedir_memoria (int filas, int columnas)
-{
-	int **m = NULL, i;
-	
-	m = (int **) malloc (sizeof(int *) * filas);
-	
-	if (m != NULL)
-	{
-		for (i = 0; (i < filas) && (i != SIN_MEMORIA); i++)
+		if (aux.mat != NULL)
 		{
-			m[i] = (int *) malloc (sizeof(int) * columnas);
-			
-			if (m[i] == NULL)
+			for (i = 0; i < aux.rows; i++)
 			{
-				liberar_memoria(&m, i-1); //Si me da NULL, libero la memoria que pedi para las filas anteriores
-				i = SIN_MEMORIA;
-			}
-		}
-	}
-	
-	return m;
-}
-
-void ingresar_matriz (matriz mat)
-{
-	int i, j;
-
-	for (i = 0; i < mat.filas; i++)
-	{	
-		for (j = 0; j < mat.columnas; j++)
-		{
-			printf("[%i][%i]: ", i, j);
-			scanf("%i", &(mat.m[i][j]));
-		}
-
-		printf("\n");
-	}
-}
-
-void imprimir_matriz (matriz mat)
-{
-	int i, j;
-	
-	for (i = 0; i < mat.filas; i++)
-	{
-		for (j = 0; j < mat.columnas; j++) printf("%i\t", mat.m[i][j]);
-		
-		printf("\n\n");
-	}
-}
-
-int ** producto (matriz A, matriz B) 
-{
-	/* A e R^mxn y B e R^ixj, filas = m, columnas = j y orden = n = i. Asi, la matriz producto queda de la forma mxj, pero necesito saber la cantidad de 
-	elementos por fila de las matrices a multiplicar (el orden) para saber hasta donde multiplicar*/
-	int i, j, k, **AB = NULL;					
-	
-	AB = pedir_memoria(A.filas, B.columnas);
-
-	/*for (i = 0; i < A.filas; i++)
-	{
-		for (j = 0; j < B.columnas; j++)
-		{
-			AB[i][j] = k = 0;
-
-			while (k != A.columnas) // "k" sirve para marcar hasta cuando se debe sumar para cada elemento de la matriz
-			{
-				AB[i][j] += (A.m)[i][k] * (B.m)[k][j];
-				k++;
-			}
-		}
-	}*/
-	
-	for (i = 0; i < A.filas; i++)
-		for (j = 0; j < B.columnas; j++)
-			for(k = AB[i][j] = 0; k < A.columnas; k++) // "k" sirve para marcar hasta cuando se debe sumar para cada elemento de la matriz
-				AB[i][j] += A.m[i][k] * B.m[k][j];
-	
-	
-	return AB;
-}
-
-void liberar_memoria (int ***m, int filas)
-{
-	int i;
-	
-	for (i = 0; i < filas; i++)
-	{
-		free((*m)[i]);
-	}
-	
-	free(*m);
-}
-
-void int_matrixMalloc (int_matrix ***A)
-{
-	int i, **aux = NULL;
-	
-	if ((**A)->rows > 0 && (**A)->cols > 0)
-	{
-		aux = (int**) malloc (sizeof(int*) * (**A)->rows);
-		
-		if (aux != NULL)
-		{
-			for (i = 0; i < (**A)->cols; i++)
-			{
-				aux[i] = (int*) malloc (sizeof(int) * (**A)->cols);
+				aux.mat[i] = (int*) malloc (sizeof(int) * aux.cols);
 				
-				if (aux[i] == NULL)
+				if (aux.mat[i] == NULL) //Si no hay memoria disponible, debo liberar las filas anteriores
 				{
-						
+					aux.rows = i; //El numero de filas a liberar sera las que el contador i llego hasta el momento
+					iMatrix_Free(&aux);
+					break;
 				}
 			}
+
+			A->mat = aux.mat;
 		}
+	}
+}
+
+void iMatrix_Free (iMatrix *A)
+{
+	int i;
+
+	for (i = 0; i < A->rows; i++)
+		free(A->mat[i]);
+
+	free(A->mat);
+}
+
+iMatrix iMatrix_Product (iMatrix A, iMatrix B)
+{
+	int i, j, k;
+	iMatrix AxB = {.mat = NULL, .rows = A.rows, .cols = B.cols};
+
+	iMatrix_Malloc(&AxB);
+
+	if (AxB.mat != NULL)
+		for (i = 0; i < A.rows; i++)
+			for (j = 0; j < B.cols; j++)
+				for(k = AxB.mat[i][j] = 0; k < A.cols /*B.rows tambien sirve*/; k++)
+					// "k" sirve para marcar hasta cuando se debe sumar para cada elemento de la matriz
+					AxB.mat[i][j] += A.mat[i][k] * B.mat[k][j];
+
+	return AxB;
+}
+
+iMatrix iMatrix_ScalarProduct (iMatrix A, int k)
+{
+	int i, j;
+
+	for (i = 0; i < A.rows; i++)
+		for (j = 0; j < A.cols; j++)
+			A.mat[i][j] *= k;
+
+	return A;
+}
+
+void iMatrix_Fprintf (iMatrix A, FILE* file)
+{
+	int i, j;
+
+	for (i = 0; i < A.rows; i++)
+	{
+		for (j = 0; j < A.cols; j++)
+			fprintf(file, "%i\t", A.mat[i][j]);
+
+		fprintf(file, "\n");
+	}
+}
+
+void iMatrix_Fscanf (iMatrix *A, FILE* file)
+{
+	int i, j;
+
+	for (i = 0; i < A->rows; i++)
+	{
+		for (j = 0; j < A->cols; j++)
+			fscanf(file, "%i", &A->mat[i][j]);
+
+		fprintf(file, "\n");
 	}
 }
 
