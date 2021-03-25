@@ -18,4 +18,5 @@ void iMatrix_Fscanf(iMatrix *A, FILE* file);
 int iMatrix_Det (iMatrix A);
 iMatrix iMatrix_Product (iMatrix A, iMatrix B);
 iMatrix iMatrix_ScalarProduct (iMatrix A, int k);
+iMatrix iMatrix_Minor (iMatrix A, int row, int col);
 void iMatrix_Free (iMatrix *A);

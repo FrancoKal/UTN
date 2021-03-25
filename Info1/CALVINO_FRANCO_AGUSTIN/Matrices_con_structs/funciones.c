@@ -92,6 +92,51 @@ void iMatrix_Fscanf (iMatrix *A, FILE* file)
 	}
 }
 
+int iMatrix_Det (iMatrix A)
+{
+	int i, sign = 1, det = 0;
+	iMatrix minor = {NULL};
+
+	if (A.rows == A.cols)
+	{
+		if (A.rows == 2)
+			det = A.mat[0][0] * A.mat[1][1] - A.mat[0][1] * A.mat[1][0];
+		else
+		{
+			for (i = 0; i < A.cols; i++)
+			{
+				minor = iMatrix_Minor(A, 0, i);
+
+				if (minor.mat == NULL)
+					break;
+
+				det += sign * A.mat[0][i] * iMatrix_Det(minor);
+				free(&minor);
+				sign *= -1;
+			}
+		}
+	}
+
+	return det;
+}
+
+iMatrix iMatrix_Minor (iMatrix A, int row, int col)
+{
+	int i, j;
+	iMatrix minor = {.mat = NULL, .rows = A.rows-1, .cols = A.cols-1};
+
+	iMatrix_Malloc(&minor);
+
+	if (minor.mat != NULL)
+		for (i = 0; i < A.rows-1; i++)
+			if (i != row)
+				for (j = 0; j < A.cols-1; j++)
+					if (j != col)
+						minor.mat[i][j] = A.mat[i][j];
+
+	return minor;
+}
+
 
 
 

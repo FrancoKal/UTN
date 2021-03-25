@@ -21,6 +21,7 @@ int main (void)
 		
 		for (i = 0; i < CANT_MATRICES + 1; i++)
 		{
+			printf("det(M[%i]) = %i\n", i+1, iMatrix_Det(M[i]));
 			iMatrix_Free(&M[i]);
 		}
 	}
