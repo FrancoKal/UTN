@@ -17,12 +17,16 @@ int main (void)
 	if (M[0].mat != NULL && M[1].mat != NULL)
 	{
 		M[2] = iMatrix_Product(M[0], M[1]);
-		iMatrix_Printf(iMatrix_ScalarProduct(M[2], 2));
-		
-		for (i = 0; i < CANT_MATRICES + 1; i++)
+
+		if (M[2].mat != NULL)
 		{
-			printf("det(M[%i]) = %i\n", i+1, iMatrix_Det(M[i]));
-			iMatrix_Free(&M[i]);
+			iMatrix_Printf(iMatrix_ScalarProduct(M[2], 2));
+			
+			for (i = 0; i < CANT_MATRICES + 1; i++)
+			{
+				printf("det(M[%i]) = %i\n", i+1, iMatrix_Det(M[i]));
+				iMatrix_Free(&M[i]);
+			}
 		}
 	}
 

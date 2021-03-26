@@ -95,7 +95,7 @@ void iMatrix_Fscanf (iMatrix *A, FILE* file)
 int iMatrix_Det (iMatrix A)
 {
 	int i, sign = 1, det = 0;
-	iMatrix minor = {NULL};
+	iMatrix minor = {.mat = NULL};
 
 	if (A.rows == A.cols)
 	{
@@ -105,13 +105,13 @@ int iMatrix_Det (iMatrix A)
 		{
 			for (i = 0; i < A.cols; i++)
 			{
-				minor = iMatrix_Minor(A, 0, i);
+				minor = iMatrix_Minor(A, 0, i); //Desarrollo el determinante por la primera fila
 
 				if (minor.mat == NULL)
 					break;
 
 				det += sign * A.mat[0][i] * iMatrix_Det(minor);
-				free(&minor);
+				iMatrix_Free(&minor);
 				sign *= -1;
 			}
 		}
@@ -122,17 +122,28 @@ int iMatrix_Det (iMatrix A)
 
 iMatrix iMatrix_Minor (iMatrix A, int row, int col)
 {
-	int i, j;
+	int i, j, m, n;
 	iMatrix minor = {.mat = NULL, .rows = A.rows-1, .cols = A.cols-1};
 
 	iMatrix_Malloc(&minor);
 
 	if (minor.mat != NULL)
-		for (i = 0; i < A.rows-1; i++)
+		for (i = m = 0; i < A.rows; i++)
+		{
 			if (i != row)
-				for (j = 0; j < A.cols-1; j++)
+			{
+				for (j = n = 0; j < A.cols; j++)
+				{
 					if (j != col)
-						minor.mat[i][j] = A.mat[i][j];
+					{
+						minor.mat[m][n] = A.mat[i][j];
+						n++;
+					}
+				}
+
+				m++;
+			}
+		}
 
 	return minor;
 }
