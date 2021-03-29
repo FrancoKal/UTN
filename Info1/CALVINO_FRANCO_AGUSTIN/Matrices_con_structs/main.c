@@ -9,7 +9,7 @@ int main (void)
 	{
 		printf("Ingresa filas y columnas para la matriz %i: ", i+1);
 		scanf("%i %i", &M[i].rows, &M[i].cols);
-		iMatrix_Malloc(&M[i]);
+		M[i] = iMatrix_Malloc(M[i].rows, M[i].cols);
 		printf("Ingresa la matriz %i\n", i+1);
 		iMatrix_Scanf(&M[i]);
 	}

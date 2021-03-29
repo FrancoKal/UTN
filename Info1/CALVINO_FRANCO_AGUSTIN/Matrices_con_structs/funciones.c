@@ -1,19 +1,44 @@
 #include "matrix.h"
 
-void iMatrix_Malloc (iMatrix *A)
+/*size_t type_size (type VarType)
+{
+	size_t result = 0;
+
+	switch(VarType)
+	{
+		case INT:
+			result = sizeof(int);
+			break;
+		case CHAR:
+			result = sizeof(char);
+			break;
+		case LONG:
+			result = sizeof(long);
+			break;
+		case DOUBLE:
+			result = sizeof(double);
+			break;
+	}
+
+	return result;
+}*/
+
+iMatrix iMatrix_Malloc (int rows, int cols)
 {
 	int i;
-	iMatrix aux = {.mat = NULL, .rows = A->rows, .cols = A->cols};
+	iMatrix aux = {.mat = NULL};
 	
-	if (aux.cols > 0 && aux.rows > 0)
+	if (cols > 0 && rows > 0)
 	{
-		aux.mat = (int**) malloc (sizeof(int*) * aux.rows);
+		aux.rows = rows;
+		aux.cols = cols;
+		aux.mat = malloc (sizeof(int*) * rows);
 		
 		if (aux.mat != NULL)
 		{
-			for (i = 0; i < aux.rows; i++)
+			for (i = 0; i < rows; i++)
 			{
-				aux.mat[i] = (int*) malloc (sizeof(int) * aux.cols);
+				aux.mat[i] = malloc (sizeof(int) * cols);
 				
 				if (aux.mat[i] == NULL) //Si no hay memoria disponible, debo liberar las filas anteriores
 				{
@@ -22,11 +47,44 @@ void iMatrix_Malloc (iMatrix *A)
 					break;
 				}
 			}
-
-			A->mat = aux.mat;
 		}
 	}
+
+	return aux;
 }
+
+/*iMatrix iMatrix_Malloc (int rows, int cols, type VarType)
+{
+	int i;
+	iMatrix A = {.mat = NULL, .VarType = VarType};
+	
+	if (A.cols > 0 && A.rows > 0)
+	{
+		A.rows = rows;
+		A.cols = cols;
+		//A.mat = (int**) malloc (sizeof(int*) * A.rows);
+		A.mat = malloc (sizeof(void*) * A.rows);
+		
+		if (A.mat != NULL)
+		{
+			for (i = 0; i < A.rows; i++)
+			{
+				//A.mat[i] = (int*) malloc (sizeof(int) * A.cols);
+				A.mat[i] = malloc (type_size(VarType) * A.cols);
+				
+				if (A.mat[i] == NULL) //Si no hay memoria disponible, debo liberar las filas anteriores
+				{
+					A.rows = i; //El numero de filas a liberar sera las que el contador i llego hasta el momento
+					iMatrix_Free(&A);
+					break;
+				}
+			}
+		}
+	}
+
+	return A;
+	
+}*/
 
 void iMatrix_Free (iMatrix *A)
 {
@@ -36,21 +94,25 @@ void iMatrix_Free (iMatrix *A)
 		free(A->mat[i]);
 
 	free(A->mat);
+	A->mat = NULL;
 }
 
 iMatrix iMatrix_Product (iMatrix A, iMatrix B)
 {
 	int i, j, k;
-	iMatrix AxB = {.mat = NULL, .rows = A.rows, .cols = B.cols};
+	iMatrix AxB = {.mat = NULL};
 
-	iMatrix_Malloc(&AxB);
+	if (A.cols == B.rows)
+	{
+		AxB = iMatrix_Malloc(A.rows, B.cols);
 
-	if (AxB.mat != NULL && A.cols == B.rows)
-		for (i = 0; i < A.rows; i++)
-			for (j = 0; j < B.cols; j++)
-				for(k = AxB.mat[i][j] = 0; k < A.cols /*B.rows tambien sirve*/; k++)
-					// "k" sirve para marcar hasta cuando se debe sumar para cada elemento de la matriz
-					AxB.mat[i][j] += A.mat[i][k] * B.mat[k][j];
+		if (AxB.mat != NULL)
+			for (i = 0; i < A.rows; i++)
+				for (j = 0; j < B.cols; j++)
+					for(k = AxB.mat[i][j] = 0; k < A.cols /*B.rows tambien sirve*/; k++)
+						// "k" sirve para marcar hasta cuando se debe sumar para cada elemento de la matriz
+						AxB.mat[i][j] += A.mat[i][k] * B.mat[k][j];
+	}
 
 	return AxB;
 }
@@ -123,27 +185,30 @@ int iMatrix_Det (iMatrix A)
 iMatrix iMatrix_Minor (iMatrix A, int row, int col)
 {
 	int i, j, m, n;
-	iMatrix minor = {.mat = NULL, .rows = A.rows-1, .cols = A.cols-1};
+	iMatrix minor = {.mat = NULL};
 
-	iMatrix_Malloc(&minor);
+	if (A.rows == A.cols)
+	{
+		minor = iMatrix_Malloc(A.rows-1, A.cols-1);
 
-	if (minor.mat != NULL)
-		for (i = m = 0; i < A.rows; i++)
-		{
-			if (i != row)
+		if (minor.mat != NULL)
+			for (i = m = 0; i < A.rows; i++)
 			{
-				for (j = n = 0; j < A.cols; j++)
+				if (i != row)
 				{
-					if (j != col)
+					for (j = n = 0; j < A.cols; j++)
 					{
-						minor.mat[m][n] = A.mat[i][j];
-						n++;
+						if (j != col)
+						{
+							minor.mat[m][n] = A.mat[i][j];
+							n++;
+						}
 					}
-				}
 
-				m++;
+					m++;
+				}
 			}
-		}
+	}
 
 	return minor;
 }
