@@ -1,0 +1,16 @@
+TEMPLATE = app
+CONFIG += console c++11
+CONFIG -= app_bundle
+CONFIG -= qt
+
+SOURCES += main.cpp \
+    lse.cpp \
+    pila.cpp
+
+SUBDIRS += \
+    Pila.pro
+
+HEADERS += \
+    datos.h \
+    Pila.h \
+    lse.h

@@ -1,0 +1,50 @@
+Composición: objetos como miembros de clases
+Un objeto RelojDespertador necesita saber cuándo se supone que debe sonar su
+alarma, así que ¿por qué no incluir un objeto Tiempo como miembro de la clase
+RelojDespertador? Dicha capacidad se conoce como composición y algunas veces
+como relación “tiene un”; una clase puede tener objetos de otras clases como
+miembros.
+Cuando se crea un objeto, su constructor se llama de manera automática. Ahora
+veremos cómo el constructor de un objeto puede pasar argumentos a los construc-
+tores de objetos miembro, lo cual se realiza mediante inicializadores de miembros.
+
+NOTA: Los objetos miembro se construyen en el orden en el que se declaran en la
+deﬁnición de la clase (no en el orden en el que se listan en la lista de inicia-
+lizadores de miembros del constructor) y antes de que se construyan los objetos
+de la clase (algunas veces conocidos como objetos anﬁtriones).
+
+Este proyecto utiliza la clase Fecha y la clase Empleado para demostrar los
+objetos como miembros de otros objetos. La deﬁnición de la clase Empleado con-
+tiene los datos miembro private primerNombre, apellidoPaterno, fechaNacimiento
+y fecha-Contratacion. Los miembros fechaNacimiento y fechaContratacion son ob-
+jetos const de la clase Fecha, que contiene los datos miembro private mes, dia
+y anio. El encabezado del constructor de Empleado especiﬁca que el constructor
+tiene cuatro parámetros (primero, ultimo, fechaDeNacimiento y
+fecha-DeContratacion). Los primeros dos parámetros se utilizan en el cuerpo del
+constructor para inicializar los arreglos de caracteres primerNombre y
+apellidoPaterno. Los últimos dos parámetros se pasan mediante inicializadores
+miembro al constructor para la clase Fecha. El signo de dos puntos (:) en el
+encabezado separa los incializadores de miembros de la lista de parámetros.
+Los inicializadores de miembros especiﬁcan los parámetros del constructor de
+Empleado que se van a pasar a los constructores de los objetos Fecha miembros.
+El parámetro fechaDeNacimiento se pasa al constructor del objeto fechaNacimiento
+y el parámetro fechaDeContratacion se pasa al constructor del objeto
+fechaContratacion. De nuevo, los inicializadores de miembros van separados por
+comas. Al estudiar la clase Fecha, observará que la clase no proporciona un
+constructor que reciba un parámetro de tipo Fecha. Entonces, ¿cómo puede la
+lista de inicializadores de miembros en el constructor de la clase Empleado
+inicializar los objetos fechaNacimiento y fechaContratacion al pasar el objeto
+Fecha a sus constructores de Fecha? Como ya se vió, el compilador proporciona
+a cada clase una copia predeterminada del constructor que copia cada miembro de
+datos del objeto argumento del constructor en el miembro correspondiente del
+objeto que se va a inicializar bit a bit.
+
+La clase Fecha y la clase Empleado incluyen un destructor respectivamente) que
+imprime un mensaje cuando se destruye un objeto de su clase. Esto nos permite
+conﬁrmar en la salida del programa que los objetos se construyen de adentro
+hacia afuera y se destruyen en orden inverso, desde afuera hacia adentro (es
+decir, los objetos miembro de Fecha se destruyen después del objeto Empleado que
+los contiene).
+
+
+
