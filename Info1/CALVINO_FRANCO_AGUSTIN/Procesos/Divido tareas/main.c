@@ -63,6 +63,7 @@ int main (void)
 						return 0;
 					
 					default:
+						close((tareas[i]).pipefd[WRITE]);
 						break;		
 				}
 			}

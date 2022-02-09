@@ -50,6 +50,12 @@ int main (void)
 		cant_final = rand() % cant_max;
 		printf("Una lastima, vamos a generar %i hijos\n", cant_final);
 		
+		if (sigaction(SIGCHLD, &sa_atender, NULL) == -1)
+		{
+			perror("sigaction");
+			exit(1);
+		}
+		
 		for (i = 0; i < cant_final; i++)
 		{
 			pid = fork();
@@ -73,7 +79,7 @@ int main (void)
 		}
 		
 
-		if (sigaction(CTRLC, &sa, NULL) == -1 || sigaction(SIGCHLD, &sa_atender, NULL) == -1)
+		if (sigaction(CTRLC, &sa, NULL) == -1 /*|| sigaction(SIGCHLD, &sa_atender, NULL) == -1*/)
 		{
 			perror("sigaction");
 			exit(1);

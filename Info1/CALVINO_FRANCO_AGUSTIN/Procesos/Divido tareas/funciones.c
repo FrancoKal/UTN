@@ -35,7 +35,7 @@ int leer_numeros(FILE *archivo, numeros **v)
 
 void may_a_men (numeros *v, int cant, FILE *archivo)
 {
-	int i, j, *primeros = NULL, *segundos = NULL, aux, estado = CONTINUO;
+	int i, *primeros = NULL, *segundos = NULL;
 	
 	primeros = (int *) malloc (sizeof(int) * cant);
 	segundos = (int *) malloc (sizeof(int) * cant);

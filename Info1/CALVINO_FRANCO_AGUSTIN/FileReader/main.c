@@ -2,11 +2,11 @@
 
 int main (void)
 {
-    char *str = NULL;
-    
-    str = ReadFile("main.c", "r", NULL);
-    printf("%s\n", str);
-    free(str);
+    FILE *fp = NULL;
+    char *result = UseFile("main.c", "r", &fp, GetFileContents);
+    unsigned int lines = CountLines(fp);
+
+    printf("%s\n\nN of lines = %i\n", result, lines);
 
     return 0;
 }
