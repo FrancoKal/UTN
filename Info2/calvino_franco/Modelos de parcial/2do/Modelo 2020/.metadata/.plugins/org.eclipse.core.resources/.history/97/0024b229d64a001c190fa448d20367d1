@@ -1,0 +1,20 @@
+/*
+ * PuertoSerie.c
+ *
+ *  Created on: 21 nov. 2021
+ *      Author: franco
+ */
+#include "PuertoSerie.h"
+
+void USART0_IRQHandler(void)
+{
+	uint8_t dato;
+	uint32_t estado = USART0->STAT;
+
+	if (estado & RX_READY)
+	{
+		//Recibo dato
+		dato = USART0->RXDAT;
+	}
+}
+

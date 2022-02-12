@@ -1,0 +1,21 @@
+/*
+ * inicializacion.c
+ *
+ *  Created on: 21 nov. 202C1
+ *      Author: franco
+ */
+#include "inicializacion.h"
+
+void Inicializacion (void)
+{
+	//Inicializa todos los perifericos salvo el ADC
+}
+
+void InicializarADC(void)
+{
+	/* Habilito el ADC:
+	 * bit 14: canal 1 (temperatura)
+	 * bit 19: canal 5 (humedad
+	 */
+	SWM->PINENABLE0 |= (1 << 14) | (1 << 19);
+}

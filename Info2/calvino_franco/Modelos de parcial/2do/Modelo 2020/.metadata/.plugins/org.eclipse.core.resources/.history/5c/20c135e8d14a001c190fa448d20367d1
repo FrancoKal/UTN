@@ -1,0 +1,15 @@
+/*
+ * PuertoSerie.c
+ *
+ *  Created on: 21 nov. 2021
+ *      Author: franco
+ */
+
+#include "PuertoSerie.h"
+
+void USART0_IRQHandler (void)
+{
+	
+}
+
+

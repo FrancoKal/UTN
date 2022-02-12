@@ -1,0 +1,32 @@
+/*
+ * teclado.c
+ *
+ *  Created on: 22 nov. 2021
+ *      Author: franco
+ */
+
+#include "teclado.h"
+
+uint8_t teclaDetectada;
+
+void TecladoSW(void)
+{
+	//Hecha por otro programador
+}
+
+uint8_t BarridoTeclado(void)
+{
+	//Debo verificar fila por fila cual columna
+}
+
+void DriverTeclado(void)
+{
+
+}
+
+uint8_t Teclado(void)
+{
+
+}
+
+

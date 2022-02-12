@@ -1,0 +1,4 @@
+../source/teclado.c:14:6:TecladoSW	16	static
+../source/teclado.c:19:9:BarridoTeclado	8	static
+../source/teclado.c:53:6:DriverTeclado	8	static
+../source/teclado.c:60:9:Teclado	16	static

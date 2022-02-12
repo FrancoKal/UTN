@@ -1,0 +1,28 @@
+/*
+ * PuertoSerie.h
+ *
+ *  Created on: 20 nov. 2021
+ *      Author: franco
+ */
+
+#ifndef PUERTOSERIE_H_
+#define PUERTOSERIE_H_
+
+#define TAM_TRAMA		12
+#define ASCII_A_INT(x)	((x) - '0')
+#define RX_READY	(1 << 0)
+#define TX_READY	(1 << 2)
+
+typedef struct
+{
+	uint8_t ta[2];	//Temperatura actual
+	uint8_t ha[2];	//Humedad actual
+	uint8_t TT[2];	//Temperatura maxima
+	uint8_t HH[2];	//Humedad maxima
+	uint8_t tt[2];	//Temperatura minima
+	uint8_t hh[2];	//Humedad minima
+} trama_serie_t;
+
+void USART0_IRQHandler(void);
+
+#endif /* PUERTOSERIE_H_ */

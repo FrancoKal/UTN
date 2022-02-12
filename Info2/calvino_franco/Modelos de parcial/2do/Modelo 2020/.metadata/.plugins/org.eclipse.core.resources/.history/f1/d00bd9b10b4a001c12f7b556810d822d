@@ -1,0 +1,82 @@
+/*
+ * MDE_Serie.c
+ *
+ *  Created on: 20 nov. 2021
+ *      Author: franco
+ */
+#include <MDE_ComunicacionSerie.h>
+
+static int MDE_COMUNICACIONSERIE_REPOSO(int);
+static int MDE_COMUNICACIONSERIE_ESPERO_LETRA (int);
+static int MDE_COMUNICACIONSERIE_DECIDIR_ACCION (int);
+static int MDE_COMUNICACIONSERIE_COMENZAR_REINICIAR (int);
+static int MDE_COMUNICACIONSERIE_DETENER (int);
+
+static int (*MDE_COMUNICACIONSERIE[]) (int) = {
+
+		MDE_COMUNICACIONSERIE_REPOSO,
+		MDE_COMUNICACIONSERIE_ESPERO_LETRA,
+		MDE_COMUNICACIONSERIE_DECIDIR_ACCION,
+		MDE_COMUNICACIONSERIE_COMENZAR_REINICIAR,
+		MDE_COMUNICACIONSERIE_DETENER
+};
+
+static int MDE_COMUNICACIONSERIE_REPOSO (int status)
+{
+	if (dato == '$')
+		status = ESPERO_LETRA;
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_INICIO (int status)
+{
+	if (dato == 'M')
+		status = DECIDIR_ACCION;
+	else status = REPOSO_SERIE;
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_DECIDIR_ACCION (int status)
+{
+	if (dato == 0)
+		status = DETENER;
+	else if (dato == 1)
+		status = COMENZAR_REINICIAR;
+	else status = REPOSO_SERIE;
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_COMENZAR_REINICIAR (int status)
+{
+	if (dato == '#')
+		accion = COMENZAR_REINICIAR_ENVIO;
+
+	return REPOSO_SERIE;
+}
+
+static int MDE_COMUNICACIONSERIE_DETENER (int status)
+{
+	if (dato == '#')
+		accion = DETENER_ENVIO;
+
+	return REPOSO_SERIE;
+}
+
+void MDE_ComunicacionSerie (void)
+{
+	static uint8_t estado = REPOSO_SERIE;
+
+	dato = Recibir();
+
+	if (dato != -1) //Debo verificar que no haya error al recibir los datos
+	{
+		estado = (*MdE_COMUNICACIONSERIE[estado])(estado);
+
+		if (estado < REPOSO_SERIE || estado > DETENER)
+				ResetComunicacionSerie();
+	}
+}
+

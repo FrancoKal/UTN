@@ -1,0 +1,4 @@
+../source/display7seg.c:22:6:MostrarEnDisplay	16	static
+../source/display7seg.c:50:6:Display	24	static
+../source/display7seg.c:81:6:BarridoDisplay	8	static
+../source/display7seg.c:124:6:display_handler	8	static

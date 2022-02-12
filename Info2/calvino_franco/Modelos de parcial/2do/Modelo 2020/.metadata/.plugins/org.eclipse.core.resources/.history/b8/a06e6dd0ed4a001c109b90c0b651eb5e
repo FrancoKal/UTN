@@ -1,0 +1,36 @@
+/*
+ * inicializacion.c
+ *
+ *  Created on: 21 nov. 202C1
+ *      Author: franco
+ */
+#include "inicializacion.h"
+
+void Inicializacion (void)
+{
+	//Inicializa todos los perifericos salvo el ADC
+}
+
+void InicializarADC(void)
+{
+	//Enciendo el periferico (con un 0 en el bit 4)
+	SYSCON->PDRUNCFG &= ~(1 << 4);
+
+	//Habilito clock para el ADC (bit 24)
+	SYSCON->SYSAHBCLKCTRL0 |= (1 << 24);
+
+	/*
+	 * Que 1 tick del clock source del ADC (por defecto el FRO)
+	 * equivalga a un tick del ADC
+	 */
+	SYSCON->ADCCLKDIV = 1;
+
+	/*
+	 * Habilito las funciones del ADC para los pines:
+	 * bit 14: canal 1 (temperatura, PIO0_6)
+	 * bit 19: canal 5 (humedad, PIO0_21)
+	 */
+	SWM->PINENABLE0 |= (1 << 14) | (1 << 19);
+
+	ADC->
+}

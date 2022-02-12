@@ -1,0 +1,24 @@
+/*
+ * ejercicio3.h
+ *
+ *  Created on: 20 nov. 2021
+ *      Author: franco
+ */
+
+#ifndef EJERCICIO3_H_
+#define EJERCICIO3_H_
+
+typedef struct
+{
+	uint32_t IR;
+	uint32_t TCR;
+	uint32_t TC;
+	uint32_t PR;
+	uint32_t PC;
+} PWM_Type;
+
+#define PWM_BASE	0x40018000
+
+
+
+#endif /* EJERCICIO3_H_ */

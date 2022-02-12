@@ -1,0 +1,1 @@
+int Inicializar ( char ** Vagon );

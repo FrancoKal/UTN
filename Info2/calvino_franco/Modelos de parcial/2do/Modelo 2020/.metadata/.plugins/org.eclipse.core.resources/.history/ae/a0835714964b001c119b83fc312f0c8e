@@ -1,0 +1,16 @@
+/*
+ * teclado.h
+ *
+ *  Created on: 22 nov. 2021
+ *      Author: franco
+ */
+
+#ifndef TECLADO_H_
+#define TECLADO_H_
+
+void TecladoSW(void);		//MDE del teclado
+uint8_t BarridoTeclado(void);	//Detecta la tecla oprimida directamente del hardware
+void DriverTeclado(void);
+uint8_t Teclado(void);
+
+#endif /* TECLADO_H_ */

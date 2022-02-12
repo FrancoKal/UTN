@@ -1,0 +1,10 @@
+../source/adc.c:16:9:format	16	static
+../source/adc.c:21:6:HabilitarConversionADC	8	static
+../source/adc.c:30:6:DeshabilitarConversionADC	8	static
+../source/adc.c:35:6:ToggleADC	16	static
+../source/adc.c:46:6:ConversionADC	8	static
+../source/adc.c:54:6:conversion_handler	8	static
+../source/adc.c:59:6:ADC0_SEQA_IRQHandler	16	static
+../source/adc.c:83:6:ProcesarDatos	24	static
+../source/adc.c:140:6:ResetTemperatura	8	static
+../source/adc.c:151:6:ResetHumedad	8	static

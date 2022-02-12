@@ -1,0 +1,1 @@
+int LecturaVagon(char **Vagon );

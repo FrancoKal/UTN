@@ -1,0 +1,22 @@
+/*
+ * teclado.h
+ *
+ *  Created on: 22 nov. 2021
+ *      Author: franco
+ */
+
+#ifndef TECLADO_H_
+#define TECLADO_H_
+
+#define	COL0	0, 0
+#define	COL1	0, 1
+#define FILA0	0, 2
+#define	FILA1	0, 3
+#define FILA3	0, 4
+
+void TecladoSW(void);			//MDE del teclado
+uint8_t BarridoTeclado(void);	//Detecta la tecla oprimida directamente del hardware
+void DriverTeclado(void);		//Driver que va en el systick handler (debe estar siempre corriendo)
+uint8_t Teclado(void);			//Funcion para detectar tecla a nivel de la aplicacion
+
+#endif /* TECLADO_H_ */

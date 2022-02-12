@@ -1,0 +1,5 @@
+../source/MDE_ComunicacionSerie.c:30:12:MDE_COMUNICACIONSERIE_REPOSO	16	static
+../source/MDE_ComunicacionSerie.c:38:12:MDE_COMUNICACIONSERIE_ESPERO_LETRA	16	static
+../source/MDE_ComunicacionSerie.c:59:12:MDE_COMUNICACIONSERIE_RESET	16	static
+../source/MDE_ComunicacionSerie.c:71:12:MDE_COMUNICACIONSERIE_FINALIZACION	16	static
+../source/MDE_ComunicacionSerie.c:118:6:MDE_ComunicacionSerie	8	static

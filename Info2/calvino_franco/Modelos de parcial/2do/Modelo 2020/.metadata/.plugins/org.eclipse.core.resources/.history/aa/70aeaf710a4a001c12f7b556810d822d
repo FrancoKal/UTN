@@ -1,0 +1,15 @@
+/*
+ * MDE_Serie.h
+ *
+ *  Created on: 20 nov. 2021
+ *      Author: franco
+ */
+
+#ifndef MDE_COMUNICACIONSERIE_H_
+#define MDE_COMUNICACIONSERIE_H_
+
+enum estadoSerie {REPOSO = 0};
+
+void MDE_Serie(void);
+
+#endif /* MDE_COMUNICACIONSERIE_H_ */

@@ -1,0 +1,61 @@
+/*
+ * display7seg.c
+ *
+ *  Created on: 22 nov. 2021
+ *      Author: franco
+ */
+
+
+uint8_t Tabla_Conversion_display7seg[10] = {
+		//Asumo que ya esta hecha
+};
+
+uint8_t bufferConversion[2];		//Para guardar los 2 digitos de la conversion
+uint8_t bufferDisplay[CANT_DIGITOS];
+
+void MostrarEnDisplay(uint8_t tecla)
+{
+	switch (tecla)
+	{
+		case TECLA_T_MAX:
+	}
+}
+
+void Display(uint32_t valor, uint8_t display)
+{
+	/*
+	 * Descompongo el valor en sus unidades y guardo el numero en BCD
+	 * correspondiente en bufferConversion. Los numeros a mostrar son de 2 digitos.
+	 */
+	for (i = 0; i < CANT_DIGITOS/2; i++)
+	{
+		bufferConversion[i] = Tabla_Conversion_display7seg[valor % 10];
+		valor /= 10;
+	}
+
+	switch (display)
+	{
+		case DISPLAY_TEMPERATURA:
+			bufferDisplay[1] = bufferConversion[1];
+			bufferDisplay[0] = bufferConversion[0];
+			break;
+
+		case DISPLAY_HUMEDAD:
+			bufferDisplay[3] = bufferConversion[1];
+			bufferDisplay[2] = bufferConversion[0];
+			break;
+
+		default: break;	//No hago nada
+	}
+}
+
+void BarridoDisplay(void)
+{
+	static uint8_t digito = 0;
+
+	//Por las dudas, apago todos los digitos
+	SetPIN(DISPLAY_TEMP_0, 0);	SetPIN(DISPLAY_TEMP_1, 0);
+	SetPIN(DISPLAY_HUM_0, 0);	SetPIN(DISPLAY_HUM_1, 0);
+
+	SetPIN(SEG_a,)
+}

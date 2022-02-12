@@ -1,0 +1,19 @@
+/*
+ * display7seg.h
+ *
+ *  Created on: 22 nov. 2021
+ *      Author: franco
+ */
+
+#ifndef DISPLAY7SEG_H_
+#define DISPLAY7SEG_H_
+
+#define DISPLAY_TEMP_0	0
+#define DISPLAY_TEMP_1	1
+#define DISPLAY_HUM_0	2
+#define DISPLAY_HUM_1	3
+
+void MostrarEnDisplay(uint8_t tecla);
+void Display(uint32_t valor, uint8_t display);
+
+#endif /* DISPLAY7SEG_H_ */

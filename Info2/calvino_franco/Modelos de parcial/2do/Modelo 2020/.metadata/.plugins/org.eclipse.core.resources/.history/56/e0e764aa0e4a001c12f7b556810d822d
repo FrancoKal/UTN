@@ -1,0 +1,107 @@
+/*
+ * MDE_Serie.c
+ *
+ *  Created on: 20 nov. 2021
+ *      Author: franco
+ */
+#include <MDE_ComunicacionSerie.h>
+
+extern uint8_t dato;
+uint8_t datoAnterior, estadoAnterior;
+
+static int MDE_COMUNICACIONSERIE_REPOSO(int);
+static int MDE_COMUNICACIONSERIE_ESPERO_LETRA (int);
+static int MDE_COMUNICACIONSERIE_RESET (int);
+static int MDE_COMUNICACIONSERIE_ESPERO_DATOS (int);
+static int MDE_COMUNICACIONSERIE_FINALIZACION (int);
+
+static int (*MDE_COMUNICACIONSERIE[]) (int) = {
+
+		MDE_COMUNICACIONSERIE_REPOSO,
+		MDE_COMUNICACIONSERIE_ESPERO_LETRA,
+		MDE_COMUNICACIONSERIE_RESET,
+		MDE_COMUNICACIONSERIE_ESPERO_DATOS,
+		MDE_COMUNICACIONSERIE_FINALIZACION
+};
+
+static int MDE_COMUNICACIONSERIE_REPOSO (int status)
+{
+	if (dato == '$')
+		status = ESPERO_LETRA;
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_ESPERO_LETRA (int status)
+{
+	switch (dato)
+	{
+		case 'D':
+			status = ESPERO_DATOS;
+			break;
+
+		case 'R':
+			status = RESET;
+			break;
+
+		default:
+			status = REPOSO;
+	}
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_RESET (int status)
+{
+	if (dato == 'H' || dato == 'T')
+	{
+		datoAnterior = dato;
+		estadoAnterior = RESET;
+		estado = FINALIZACION;
+	}
+	else status = REPOSO;
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_FINALIZACION (int status)
+{
+	if (dato == '#')
+	{
+		if (estadoAnterior = RESET)
+		{
+			if (datoAnterior == 'H')
+				ResetHumedad();
+			else if (datoAnterior == 'T')
+				ResetTemperatura();
+		}
+	}
+
+	return REPOSO;
+}
+
+static int MDE_COMUNICACIONSERIE_ESPERO_DATOS (int status)
+{
+	switch (dato)
+	{
+
+	}
+
+	return status;
+}
+
+void MDE_ComunicacionSerie (void)
+{
+	static uint8_t estado = REPOSO_SERIE;
+
+	dato = Recibir();
+
+	if (dato != -1) //Debo verificar que no haya error al recibir los datos
+	{
+		estado = (*MDE_COMUNICACIONSERIE[estado])(estado);
+
+		if (estado < REPOSO || estado > DETENER)
+				ResetComunicacionSerie();
+	}
+}
+

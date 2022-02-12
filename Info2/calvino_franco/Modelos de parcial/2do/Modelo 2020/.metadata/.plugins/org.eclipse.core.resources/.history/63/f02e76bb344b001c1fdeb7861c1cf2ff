@@ -1,0 +1,17 @@
+/*
+ * adc.c
+ *
+ *  Created on: 21 nov. 2021
+ *      Author: franco
+ */
+
+#include "adc.h"
+
+void HabilitarConversion (void)
+{
+	/*
+	 * Que use el modo BURST (hace conversiones automaticamente y ciclicamente) y habilito la secuencia
+	 * NOTA: por obligacion del fabricante, esto se debe hacer en la misma linea de codigo
+	 */
+	ADC->SEQ_CTRL[0] |= (1 << 27) | (1 << 31);
+}

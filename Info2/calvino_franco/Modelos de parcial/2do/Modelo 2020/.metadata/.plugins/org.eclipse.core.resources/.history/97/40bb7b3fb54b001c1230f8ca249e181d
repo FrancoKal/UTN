@@ -1,0 +1,11 @@
+/*
+ * display7seg.c
+ *
+ *  Created on: 22 nov. 2021
+ *      Author: franco
+ */
+
+
+uint8_t Tabla_Conversion_display7seg[10] = {
+
+};

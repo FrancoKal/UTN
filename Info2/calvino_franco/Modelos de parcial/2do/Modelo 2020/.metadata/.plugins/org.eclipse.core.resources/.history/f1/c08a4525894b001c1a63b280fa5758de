@@ -1,0 +1,26 @@
+/*
+ * adc.h
+ *
+ *  Created on: 21 nov. 2021
+ *      Author: franco
+ */
+
+#ifndef ADC_H_
+#define ADC_H_
+
+#define EVENTO_CONVERSION	0
+
+typedef struct
+{
+	uint8_t ta[2];	//Temperatura actual
+	uint8_t ha[2];	//Humedad actual
+	uint8_t TT[2];	//Temperatura maxima
+	uint8_t HH[2];	//Humedad maxima
+	uint8_t tt[2];	//Temperatura minima
+	uint8_t hh[2];	//Humedad minima
+} datos_adc_t;
+
+void HabilitarConversion (void);
+void Conversion (void);
+
+#endif /* ADC_H_ */

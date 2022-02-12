@@ -1,0 +1,78 @@
+/*
+ * adc.c
+ *
+ *  Created on: 21 nov. 2021
+ *      Author: franco
+ */
+
+#include "adc.h"
+
+void ADC0_SEQA_IRQHandler(void);
+
+datos_adc_t datosADC;
+
+void HabilitarConversion (void)
+{
+	/*
+	 * Que use el modo BURST (hace conversiones automaticamente y ciclicamente) y habilito la secuencia
+	 * NOTA: por obligacion del fabricante, esto se debe hacer en la misma linea de codigo
+	 */
+	ADC->SEQ_CTRL[0] |= (1 << 27) | (1 << 31);
+}
+
+void ToggleADC (void)
+{
+	uint32_t ADC_On = (1 << 27) | (1 << 31);
+
+	//Si el modo BURST y la secuencia estan habilitadas, se deshabilitan, y viceversa
+	if (ADC->SEQ_CTRL[0] & ADC_On)
+		ADC->SEQ_CTRL[0] &= ~ADC_On;
+	else
+		ADC->SEQ_CTRL[0] |= ADC_On;
+}
+
+void Conversion()
+{
+	ToggleConversion();
+
+	//Creo un timer para que vence en 1 segundo
+	TimerStart(EVENTO_CONVERSION, 1, conversion_handler, SEG);
+}
+
+void conversion_handler(void)
+{
+	Conversion();
+}
+
+void ADC0_SEQA_IRQHandler(void)
+{
+	uint32_t datosValidos = (1 << 31);
+	uint32_t temperatura, humedad;
+
+	if (ADC->DAT[1] & datosValidos)
+	{
+		/*
+		 * El resultado esta entre los bits 4 y 15 del registro correspondiente, por lo que
+		 * debo desplazar ese resultado 4 lugares.
+		 * Hago un & con 0x0FFF para que los 1eros 12 bits de ADC->DAT[1] >> 4 permanezcan
+		 * como estaban y que los bits posteriores queden en 0.
+		 */
+		temperatura = (ADC->DAT[1] >> 4) & 0x00000FFF;
+	}
+
+	if (ADC->DAT[5] & datosValidos)
+	{
+		//Idem
+		humedad = (ADC->DAT[5] >> 4) & 0x00000FFF;
+	}
+
+	ProcesarDatos(temperatura, humedad);
+}
+
+void ProcesarDatos(uint32_t temperatura, uint32_t humedad)
+{
+	//Le paso la temperatura (entre 0º y 99º) en uint32_t y la devuelve en uint8_t
+	uint8_t bufferTemp = format(temperatura), bufferHum = format(humedad);
+
+	datosADC.
+}

@@ -1,0 +1,59 @@
+/*
+ * inicializacion.c
+ *
+ *  Created on: 21 nov. 202C1
+ *      Author: franco
+ */
+#include "inicializacion.h"
+
+void Inicializacion (void)
+{
+	//Inicializa todos los perifericos salvo el ADC
+}
+
+void InicializarADC(void)
+{
+	//Enciendo el periferico (con un 0 en el bit 4)
+	SYSCON->PDRUNCFG &= ~(1 << 4);
+
+	//Habilito clock para el ADC (bit 24)
+	SYSCON->SYSAHBCLKCTRL0 |= (1 << 24);
+
+	/*
+	 * Que 60 ticks del clock source del ADC (por defecto el FRO de 30MHz)
+	 * equivalga a 1 tick del ADC para alcanzar la frecuencia de calibracion, que es de 500kHz.
+	 * Esto es sugerido por el fabricante antes de activar el modo calibracion
+	 */
+	SYSCON->ADCCLKDIV = 60;
+
+	/*
+	 * Habilito las funciones del ADC para los pines:
+	 * bit 14: canal 1 (temperatura, PIO0_6)
+	 * bit 19: canal 5 (humedad, PIO0_21)
+	 */
+	SWM->PINENABLE0 |= (1 << 14) | (1 << 19);
+
+	//Calibro el ADC primero
+	ADC->CTRL |= (1 << 30);
+
+	//Habilito interrupciones para la secuencia A (desde el NVIC y desde el ADC)
+	NVIC->ISER0 |= (1 << 16);
+	ADC->INTEN |= (1 << 0);
+
+	//Habilito modo bajo consumo con un 1 en el bit 10
+	//ADC->CTRL |= (1 << 10);
+
+	//Configuro el ADC para usar la secuancia A con los canales 1 y 5
+	ADC->SEQ_CTRL[0] |= (1 << 1) | (1 << 5);
+
+	/*
+	 * Que la interrupcion se genere al terminar cada secuencia de conversiones, por lo tanto,
+	 * voy a tener que leer el resultado por los registros individuales
+	 * En esta secuencia, tengo el canal para la temperatura y para la humedad.
+	 *
+	 * Con un 0, hago que se genere una interrupcion cada vez que se finaliza una conversion (ya sea
+	 * de la temperatura o de la humedad). Con un 1, la interrupcion se genera cuando hayan terminado
+	 * las conversiones de todos los canales de la secuencia (en este caso son 2)
+	 */
+	ADC_SEQ_CTRL[0] |= (1 << 30);
+}

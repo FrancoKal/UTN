@@ -1,0 +1,33 @@
+/*
+ * PuertoSerie.c
+ *
+ *  Created on: 21 nov. 2021
+ *      Author: franco
+ */
+#include "PuertoSerie.h"
+
+void USART0_IRQHandler(void)
+{
+	uint8_t datoRecibido;
+	uint32_t estado = USART0->STAT;
+
+	//Caso recepcion
+	if (estado & RX_READY)
+	{
+		//Recibo dato
+		datoRecibido = USART0->RXDAT;
+
+		//Mando el dato al buffer
+		UART0_pushRx(datoRecibido);
+	}
+
+	//Caso transmision
+	if (estado & TX_READY)
+	{
+		/*
+		 * Primero debo sacar los datos que esten en el buffer de transmision y enviarlos
+		 * antes de enviar un nuevo dato
+		 */
+	}
+}
+

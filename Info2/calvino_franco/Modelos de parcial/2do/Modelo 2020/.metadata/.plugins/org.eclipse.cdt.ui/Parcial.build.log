@@ -1,0 +1,174 @@
+15:39:17 **** Incremental Build of configuration Debug for project Parcial ****
+make -r -j4 all 
+Building file: ../source/ejercicio3.c
+Building file: ../source/teclado.c
+Building file: ../source/timer.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DCPU_LPC845M301JBD48 -DCPU_LPC845M301JBD48_cm0plus -DSDK_OS_BAREMETAL -DSDK_DEBUGCONSOLE=1 -DCR_INTEGER_PRINTF -DPRINTF_FLOAT_ENABLE=0 -D__MCUXPRESSO -D__USE_CMSIS -DDEBUG -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/board" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/source" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/drivers" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/component/uart" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/utilities" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/CMSIS" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/device" -O0 -fno-common -g3 -Wall -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fmerge-constants -fmacro-prefix-map="../source/"=. -mcpu=cortex-m0plus -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"source/ejercicio3.d" -MT"source/ejercicio3.o" -MT"source/ejercicio3.d" -o "source/ejercicio3.o" "../source/ejercicio3.c"
+Invoking: MCU C Compiler
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DCPU_LPC845M301JBD48 -DCPU_LPC845M301JBD48_cm0plus -DSDK_OS_BAREMETAL -DSDK_DEBUGCONSOLE=1 -DCR_INTEGER_PRINTF -DPRINTF_FLOAT_ENABLE=0 -D__MCUXPRESSO -D__USE_CMSIS -DDEBUG -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/board" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/source" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/drivers" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/component/uart" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/utilities" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/CMSIS" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/device" -O0 -fno-common -g3 -Wall -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fmerge-constants -fmacro-prefix-map="../source/"=. -mcpu=cortex-m0plus -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"source/teclado.d" -MT"source/teclado.o" -MT"source/teclado.d" -o "source/teclado.o" "../source/teclado.c"
+arm-none-eabi-gcc -D__REDLIB__ -DCPU_LPC845M301JBD48 -DCPU_LPC845M301JBD48_cm0plus -DSDK_OS_BAREMETAL -DSDK_DEBUGCONSOLE=1 -DCR_INTEGER_PRINTF -DPRINTF_FLOAT_ENABLE=0 -D__MCUXPRESSO -D__USE_CMSIS -DDEBUG -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/board" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/source" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/drivers" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/component/uart" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/utilities" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/CMSIS" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/device" -O0 -fno-common -g3 -Wall -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fmerge-constants -fmacro-prefix-map="../source/"=. -mcpu=cortex-m0plus -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"source/timer.d" -MT"source/timer.o" -MT"source/timer.d" -o "source/timer.o" "../source/timer.c"
+Building file: ../drivers/fsl_gpio.c
+In file included from ../source/ejercicio3.c:12:
+../source/ejercicio3.c: In function 'ejercicio3':
+../source/ejercicio3.h:25:15: error: expected identifier before '(' token
+   25 | #define PWM   ((PWM_Type*) PWM_BASE)
+      |               ^
+../source/ejercicio3.h:27:14: note: in expansion of macro 'PWM'
+   27 | #define IR   PWM->IR
+      |              ^~~
+../source/ejercicio3.c:21:8: note: in expansion of macro 'IR'
+   21 |   PWM->IR = MASCARA_INT;
+      |        ^~
+../source/ejercicio3.h:25:15: error: expected identifier before '(' token
+   25 | #define PWM   ((PWM_Type*) PWM_BASE)
+      |               ^
+../source/ejercicio3.h:28:15: note: in expansion of macro 'PWM'
+   28 | #define TCR   PWM->TCR
+      |               ^~~
+../source/ejercicio3.c:22:8: note: in expansion of macro 'TCR'
+   22 |   PWM->TCR = MASCARA_CTRL;
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -D__REDLIB__ -DCPU_LPC845M301JBD48 -DCPU_LPC845M301JBD48_cm0plus -DSDK_OS_BAREMETAL -DSDK_DEBUGCONSOLE=1 -DCR_INTEGER_PRINTF -DPRINTF_FLOAT_ENABLE=0 -D__MCUXPRESSO -D__USE_CMSIS -DDEBUG -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/board" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/source" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/drivers" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/component/uart" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/utilities" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/CMSIS" -I"/home/franco/UTN/Informatica_II/Practicando/Modelos de parcial/2do/Modelo 2020/Parcial/device" -O0 -fno-common -g3 -Wall -c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin -fmerge-constants -fmacro-prefix-map="../drivers/"=. -mcpu=cortex-m0plus -mthumb -D__REDLIB__ -fstack-usage -specs=redlib.specs -MMD -MP -MF"drivers/fsl_gpio.d" -MT"drivers/fsl_gpio.o" -MT"drivers/fsl_gpio.d" -o "drivers/fsl_gpio.o" "../drivers/fsl_gpio.c"
+      |        ^~~
+make: *** [source/subdir.mk:56: source/ejercicio3.o] Error 1
+make: *** Se espera a que terminen otras tareas....
+In file included from ../source/teclado.c:8:
+../source/teclado.c: In function 'BarridoTeclado':
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:31:2: note: in expansion of macro 'DELAY'
+   31 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |  ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:31:8: note: in expansion of macro 'DELAY'
+   31 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |        ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:31:14: note: in expansion of macro 'DELAY'
+   31 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |              ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:31:20: note: in expansion of macro 'DELAY'
+   31 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                    ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:31:26: note: in expansion of macro 'DELAY'
+   31 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                          ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:31:32: note: in expansion of macro 'DELAY'
+   31 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                                ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:31:38: note: in expansion of macro 'DELAY'
+   31 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                                      ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:38:2: note: in expansion of macro 'DELAY'
+   38 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |  ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:38:8: note: in expansion of macro 'DELAY'
+   38 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |        ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:38:14: note: in expansion of macro 'DELAY'
+   38 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |              ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:38:20: note: in expansion of macro 'DELAY'
+   38 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                    ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:38:26: note: in expansion of macro 'DELAY'
+   38 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                          ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:38:32: note: in expansion of macro 'DELAY'
+   38 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                                ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:38:38: note: in expansion of macro 'DELAY'
+   38 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                                      ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:45:2: note: in expansion of macro 'DELAY'
+   45 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |  ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:45:8: note: in expansion of macro 'DELAY'
+   45 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |        ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:45:14: note: in expansion of macro 'DELAY'
+   45 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |              ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:45:20: note: in expansion of macro 'DELAY'
+   45 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                    ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:45:26: note: in expansion of macro 'DELAY'
+   45 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                          ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:45:32: note: in expansion of macro 'DELAY'
+   45 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                                ^~~~~
+../source/teclado.h:20:16: warning: statement with no effect [-Wunused-value]
+   20 | #define DELAY  0;
+      |                ^
+../source/teclado.c:45:38: note: in expansion of macro 'DELAY'
+   45 |  DELAY DELAY DELAY DELAY DELAY DELAY DELAY
+      |                                      ^~~~~
+Finished building: ../source/teclado.c
+ 
+Finished building: ../source/timer.c
+ 
+Finished building: ../drivers/fsl_gpio.c
+ 
+"make -r -j4 all" terminated with exit code 2. Build might be incomplete.
+
+15:39:18 Build Failed. 4 errors, 21 warnings. (took 1s.359ms)
+

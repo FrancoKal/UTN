@@ -1,0 +1,161 @@
+/*
+ * MDE_Serie.c
+ *
+ *  Created on: 20 nov. 2021
+ *      Author: franco
+ */
+#include "MDE_ComunicacionSerie.h"
+#include "PuertoSerie.h"
+
+extern uint8_t dato;
+uint8_t datoAnterior, estadoAnterior;
+uint8_t buffer[TAM_TRAMA];
+trama_serie_t trama;
+
+static int MDE_COMUNICACIONSERIE_REPOSO(int);
+static int MDE_COMUNICACIONSERIE_ESPERO_LETRA (int);
+static int MDE_COMUNICACIONSERIE_RESET (int);
+static int MDE_COMUNICACIONSERIE_ESPERO_DATOS (int);
+static int MDE_COMUNICACIONSERIE_FINALIZACION (int);
+
+static int (*MDE_COMUNICACIONSERIE[]) (int) = {
+
+		MDE_COMUNICACIONSERIE_REPOSO,
+		MDE_COMUNICACIONSERIE_ESPERO_LETRA,
+		MDE_COMUNICACIONSERIE_RESET,
+		MDE_COMUNICACIONSERIE_ESPERO_DATOS,
+		MDE_COMUNICACIONSERIE_FINALIZACION
+};
+
+static int MDE_COMUNICACIONSERIE_REPOSO (int status)
+{
+	if (dato == '$')
+		status = ESPERO_LETRA;
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_ESPERO_LETRA (int status)
+{
+	switch (dato)
+	{
+		case 'D':
+			status = ESPERO_DATOS;
+			break;
+
+		case 'R':
+			status = RESET;
+			break;
+
+		default:
+			status = REPOSO;
+	}
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_RESET (int status)
+{
+	if (dato == 'H' || dato == 'T')
+	{
+		datoAnterior = dato;
+		estadoAnterior = RESET;
+		estado = FINALIZACION;
+	}
+	else status = REPOSO;
+
+	return status;
+}
+
+static int MDE_COMUNICACIONSERIE_FINALIZACION (int status)
+{
+	if (dato == '#')
+	{
+		if (estadoAnterior == RESET)
+		{
+			if (datoAnterior == 'H')
+			{
+				ResetHumedad();
+				UART0_pushTx('$');
+				UART0_pushTx('H');
+				UART0_pushTx('0');
+				UART0_pushTx('0');
+				UART0_pushTx('#');
+
+			}
+			else if (datoAnterior == 'T')
+			{
+				ResetTemperatura();
+				UART0_pusTx('$');
+				UART0_pusTx('T');
+				UART0_pusTx('0');
+				UART0_pusTx('0');
+				UART0_pusTx('#');
+			}
+		}
+		else if (estadoAnterior == ESPERO_DATOS)
+		{
+			trama.ta[0] = buffer[0];
+			trama.ta[1] = buffer[1];
+			trama.ha[0] = buffer[2];
+			trama.ha[1] = buffer[3];
+			trama.TT[0] = buffer[4];
+			trama.TT[1] = buffer[5];
+			trama.HH[0] = buffer[6];
+			trama.HH[1] = buffer[7];
+			trama.tt[0] = buffer[8];
+			trama.tt[1] = buffer[9];
+			trama.hh[0] = buffer[10];
+			trama.hh[1] = buffer[11];
+		}
+	}
+
+	return REPOSO;
+}
+
+static int MDE_COMUNICACIONSERIE_ESPERO_DATOS (int status)
+{
+	uint32_t i;
+	static uint8_t datoSiguiente = 0;
+
+
+	if (dato > '0' && dato < '9')
+	{
+		buffer[datoSiguiente] = dato;
+		datoSiguiente++;
+	}
+	else
+	{
+		status = REPOSO;
+
+		//Limpio todos los datos
+		for (i = 0; i < TAM_TRAMA; i++)
+			buffer[i] = 0;
+	}
+
+	//Ya me llegaron todos los datos de la trama, debo esperar ahora el '#'
+	if (datoSiguiente == (TAM_TRAMA-1))
+	{
+		datoSiguiente = 0;
+		estado = FINALIZACION;
+		estadoAnterior = ESPERO_DATOS;
+	}
+
+	return status;
+}
+
+void MDE_ComunicacionSerie (void)
+{
+	static uint8_t estado = REPOSO;
+
+	dato = Recibir();
+
+	if (dato != -1) //Debo verificar que no haya error al recibir los datos
+	{
+		estado = (*MDE_COMUNICACIONSERIE[estado])(estado);
+
+		if (estado < REPOSO || estado > DETENER)
+				ResetComunicacionSerie();
+	}
+}
+

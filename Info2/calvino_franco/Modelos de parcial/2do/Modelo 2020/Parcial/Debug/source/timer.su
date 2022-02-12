@@ -1,0 +1,9 @@
+../source/timer.c:48:6:AnalizarTimers	16	static
+../source/timer.c:71:6:TimerEvent	16	static
+../source/timer.c:132:6:TimerStart	24	static
+../source/timer.c:170:6:SetTimer	16	static
+../source/timer.c:194:10:GetTimer	24	static
+../source/timer.c:221:6:StandByTimer	16	static
+../source/timer.c:233:6:TimerStop	16	static
+../source/timer.c:248:6:TimerClose	16	static
+../source/timer.c:259:6:SysTick_Handler	8	static
