@@ -4,8 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp \
-        matrix.cpp
+        main.cpp
 
 HEADERS += \
     matrix.h

@@ -20,7 +20,7 @@ int main()
     matrixPrint(M[2]);
     det = Determinant(M[2]);
     cout << "|C| = " << det << "\n";
-    (M[0])(2, 2) = 100;
+    (M[0])(rows-1, cols-1) = 100;
     matrixPrint(M[0]);
 
     /*for (i = 0; i < 3; i++)
