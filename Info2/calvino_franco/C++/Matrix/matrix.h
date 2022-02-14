@@ -22,6 +22,8 @@ class matrix
          template <typename T> friend float Determinant (const matrix<T>& A);
 
          /* ------------ Sobrecarga de operadores --------------    */
+         template <typename T> friend ostream& operator<< (ostream& out, const matrix<T>& A);
+//         template <typename T> friend istream& operator>> (istream& in, const matrix<T>& A);
          template <typename T, typename U> friend matrix<T> operator+ (const matrix<T>& A, const matrix<U>& B);
          template <typename T, typename U> friend matrix<T> operator- (const matrix<T>& A, const matrix<U>& B) { return A + (-1)*B; }
          template <typename T> friend matrix<T> operator* (float k, const matrix<T>& A);
@@ -291,17 +293,19 @@ void matrixScan (matrix<type> *A)
 }
 
 template <typename type>
-void matrixPrint (matrix<type>& A)
+ostream& operator<< (ostream& out, matrix<type>& A)
 {
     int i, j, A_rows = A.rows(), A_cols = A.cols();
 
     for (i = 0; i < A_rows; i++)
     {
         for (j = 0; j < A_cols; j++)
-            cout << A.m[i][j] << "\t";
+            out << A.m[i][j] << "\t";
 
-        cout << "\n\n";
+        out << "\n\n";
     }
+
+    return out;
 }
 
 #endif // MATRIX_H
