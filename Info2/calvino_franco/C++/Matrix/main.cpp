@@ -1,11 +1,14 @@
-#include <iostream>
 #include "matrix.h"
 
+/*
+using std::cout;
+using std::cin;
+*/
 using namespace std;
 
 int main()
 {
-    matrix<int> M[3];
+    matrix<float> M[3];
     int i, det, rows, cols;
 
     for (i = 0; i < 2; i++)

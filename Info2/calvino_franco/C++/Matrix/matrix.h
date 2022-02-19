@@ -2,7 +2,6 @@
 #define MATRIX_H
 
 #include <iostream>
-using namespace std;
 
 template <typename type = int>
 class matrix
@@ -22,8 +21,8 @@ class matrix
          template <typename T> friend float Determinant (const matrix<T>& A);
 
          /* ------------ Sobrecarga de operadores --------------    */
-         template <typename T> friend ostream& operator<< (ostream& out, const matrix<T>& A);
-//         template <typename T> friend istream& operator>> (istream& in, const matrix<T>& A);
+         template <typename T> friend std::ostream& operator<< (std::ostream& out, const matrix<T>& A);
+//         template <typename T> friend std::istream& operator>> (std::istream& in, const matrix<T>& A);
          template <typename T, typename U> friend matrix<T> operator+ (const matrix<T>& A, const matrix<U>& B);
          template <typename T, typename U> friend matrix<T> operator- (const matrix<T>& A, const matrix<U>& B) { return A + (-1)*B; }
          template <typename T> friend matrix<T> operator* (float k, const matrix<T>& A);
@@ -42,7 +41,6 @@ class matrix
 
         void matrixCopy (const matrix<type>& A);
         //void forEveryElement (int (*func));
-
 };
 
 template <typename type>
@@ -286,14 +284,14 @@ void matrixScan (matrix<type> *A)
     for (i = 0; i < A_rows; i++)
     {
         for (j = 0; j < A_cols; j++)
-            cin >> A->m[i][j];
+            std::cin >> A->m[i][j];
 
-        cout << "\n\n";
+        std::cout << "\n\n";
     }
 }
 
 template <typename type>
-ostream& operator<< (ostream& out, matrix<type>& A)
+std::ostream& operator<< (std::ostream& out, matrix<type>& A)
 {
     int i, j, A_rows = A.rows(), A_cols = A.cols();
 
