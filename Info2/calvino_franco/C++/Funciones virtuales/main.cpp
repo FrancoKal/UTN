@@ -11,6 +11,16 @@ int main (void)
     Base b, *p1 = nullptr;
     Derivada d, *p2 = nullptr;
 
+    /*
+        Una estructura y un objeto con las mismas variables ocupan el mismo espacio en memoria si no hay funciones virtuales
+        en la clase de dicho objeto.
+        Si la clase contiene alguna funcion virtual, la clase guardara tambien en memoria un puntero a una Vtable, por lo que pesara
+        8 bytes mas que antes.
+    */
+    std::cout << "sizeof DATO = " << sizeof(DATO) << "\n";
+    std::cout << "sizeof Base = " << sizeof(Base) << "\n";
+    std::cout << "sizeof Derivada = " << sizeof(Derivada) << "\n";
+
     //Llamo al metodo Nombre de la clase base
     b.Nombre();
 

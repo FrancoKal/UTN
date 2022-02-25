@@ -3,10 +3,20 @@
 
 #include <iostream>
 
+typedef struct
+{
+    int x;
+    char *p;
+} DATO;
+
 namespace SinFuncionVirtual
 {
     class Base
     {
+        private:
+            int x;
+            char *p;
+
         public:
             Base() {};
             ~Base() {};
@@ -16,6 +26,10 @@ namespace SinFuncionVirtual
 
     class Derivada: public Base
     {
+        private:
+            int x;
+            char *p;
+
         public:
             Derivada() {};
             ~Derivada() {};
@@ -28,6 +42,10 @@ namespace ConFuncionVirtual
 {
     class Base
     {
+        private:
+            int x;
+            char *p;
+
         public:
             Base() {};
             ~Base() {};
@@ -37,6 +55,10 @@ namespace ConFuncionVirtual
 
     class Derivada: public Base
     {
+        private:
+            int x;
+            char *p;
+
         public:
             Derivada() {};
             ~Derivada() {};
