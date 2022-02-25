@@ -6,6 +6,9 @@
 //Descomentar la linea de abajo para usar la version con funciones virtuales
 using namespace ConFuncionVirtual;
 
+//Descomentar la linea de abajo para usar la version con funciones puramente virtuales (no compilara)
+//using namespace ConFuncionPuramenteVirtual;
+
 int main (void)
 {
     Base b, *p1 = nullptr;
